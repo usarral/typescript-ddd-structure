@@ -7,7 +7,18 @@
     "url": "https://github.com/usarral/typescript-ddd-structure"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:clean": "rm -r dist; exit 0",
+    "build:di": "copy  'src/**/*.{json,yaml,html,png}' dist/src ",
+    "build:tsc": "tsc -p tsconfig.prod.json",
+    "build": "npm run build:clean && npm run build:tsc && npm run build:di",
+    "dev:mooc:backend": "NODE_ENV=dev ts-node-dev --ignore-watch node_modules  ./src/apps/mooc/backend/start.ts",
+    "lint:fix": "npm run lint -- --fix ",
+    "lint": "eslint --ignore-pattern .gitignore --ext .ts .",
+    "start:mooc:backend": "NODE_ENV=production node dist/src/apps/mooc/backend/start",
+    "test:features": "npm run test:mooc:backend:features",
+    "test:mooc:backend:features": "NODE_ENV=test cucumber-js -p mooc-backend",
+    "test:unit": "NODE_ENV=test jest",
+    "test": "npm run test:unit && npm run test:features"
   },
   "keywords": [],
   "author": "",
